@@ -29,8 +29,8 @@ export const upload = (req, res) => {
     return;
   }
 
-  // Load G-code
-  controller.command('gcode:load', name, gcode, context, (err, state) => {
+  // Save G-code (it will also load it)
+  controller.command('watchdir:save', name, gcode, context, (err, state) => {
     if (err) {
       res.status(ERR_INTERNAL_SERVER_ERROR).send({
         msg: 'Failed to load G-code: ' + err

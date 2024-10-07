@@ -1384,7 +1384,23 @@ class GrblController {
 
             this.command('gcode:load', file, data, context, callback);
           });
-        }
+        },
+        'watchdir:save': () => {
+          let [name, gcode, context = {}, callback = noop] = args;
+          if (typeof context === 'function') {
+            callback = context;
+            context = {};
+          }
+          
+          monitor.writeFile(name, gcode, (err) => {
+            if (err) {
+              callback(err);
+              return;
+            }
+
+            this.command('gcode:load', file, data, context, callback);
+          });
+        },
       }[cmd];
 
       if (!handler) {

@@ -68,9 +68,17 @@ const readFile = (file, callback) => {
   fs.readFile(file, 'utf8', callback);
 };
 
+const writeFile = (file, content, callback) => {
+  const root = monitor.root;
+  file = path.join(root, file);
+
+  fs.writeFile(file, content, callback);
+};
+
 export default {
   start,
   stop,
   getFiles,
-  readFile
+  readFile,
+  writeFile
 };
